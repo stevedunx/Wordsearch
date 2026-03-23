@@ -184,6 +184,26 @@ document.addEventListener('DOMContentLoaded', function() {
         return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     }
 
+    function hashString(value) {
+        let hash = 2166136261;
+        for (let index = 0; index < value.length; index++) {
+            hash ^= value.charCodeAt(index);
+            hash = Math.imul(hash, 16777619);
+        }
+        return hash >>> 0;
+    }
+
+    function createSeededRandom(seedValue) {
+        let seed = hashString(seedValue);
+        return function seededRandom() {
+            seed += 0x6D2B79F5;
+            let next = seed;
+            next = Math.imul(next ^ (next >>> 15), next | 1);
+            next ^= next + Math.imul(next ^ (next >>> 7), next | 61);
+            return ((next ^ (next >>> 14)) >>> 0) / 4294967296;
+        };
+    }
+
     function generateWordsearch() {
         const gridLang = getCurrentGridLanguage();
         const listLang = getCurrentListLanguage();
@@ -227,6 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const sourceField = mapLangCodeToField(gridLang);
         const targetField = mapLangCodeToField(listLang);
+        const seededRandom = createSeededRandom(`${theme}:${sourceField}:${gridSize}`);
 
         // Keep source words in a lookup for any valid location in the grid
         wordData.forEach(item => sourceWordsSet.add(item[sourceField]));
@@ -234,14 +255,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Try to place each word with selected source language in grid
         for (const item of wordData) {
             const sourceWord = item[sourceField];
-            const placement = placeWord(currentGrid, sourceWord, gridSize);
+            const placement = placeWord(currentGrid, sourceWord, gridSize, seededRandom);
             if (placement) {
                 placedWords.push({ ...placement, target: item[targetField], source: sourceWord });
             }
         }
 
         // Fill empty cells with random letters
-        fillEmptyCells(currentGrid, gridSize);
+        fillEmptyCells(currentGrid, gridSize, seededRandom);
 
         // Display the grid
         displayGrid(currentGrid, gridSize);
@@ -257,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return Array.from({ length: size }, () => Array(size).fill(null));
     }
 
-    function placeWord(grid, word, size) {
+    function placeWord(grid, word, size, random) {
         const directions = [
             [0, 1],   // right
             [1, 0],   // down
@@ -271,9 +292,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Try up to 100 times to place the word
         for (let attempt = 0; attempt < 100; attempt++) {
-            const direction = directions[Math.floor(Math.random() * directions.length)];
-            const startRow = Math.floor(Math.random() * size);
-            const startCol = Math.floor(Math.random() * size);
+            const direction = directions[Math.floor(random() * directions.length)];
+            const startRow = Math.floor(random() * size);
+            const startCol = Math.floor(random() * size);
 
             if (canPlaceWord(grid, word, startRow, startCol, direction, size)) {
                 // Place the word
@@ -304,12 +325,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
-    function fillEmptyCells(grid, size) {
+    function fillEmptyCells(grid, size, random) {
         const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         for (let row = 0; row < size; row++) {
             for (let col = 0; col < size; col++) {
                 if (grid[row][col] === null) {
-                    grid[row][col] = letters[Math.floor(Math.random() * letters.length)];
+                    grid[row][col] = letters[Math.floor(random() * letters.length)];
                 }
             }
         }
@@ -348,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayWordList(placements, displayKey) {
-        const langName = displayKey.charAt(0).toUpperCase() + displayKey.slice(1);
+        const langName = getLanguageDisplayName(displayKey);
         wordListDiv.innerHTML = '<h3>Words to find (' + langName + '):</h3>';
         const ul = document.createElement('ul');
         placements.forEach(placement => {
