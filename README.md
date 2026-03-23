@@ -1,11 +1,13 @@
-# Spanish-English Food Wordsearch Generator
+# Multi-Language Wordsearch Generator
 
-A static website that generates wordsearch puzzles with Spanish/English food vocabulary. Choose direction and find the target language words in the grid.
+A static website that generates wordsearch puzzles with vocabulary in multiple languages. Choose which language appears in the grid and which language appears in the word list, then find the word list language words hidden in the grid.
 
 ## Features
 
-- Pre-loaded Spanish food words from `words.json`
-- Generates a 15x15 wordsearch grid from Spanish or English based on selected direction
+- Pre-loaded vocabulary words from `words.json` with Spanish, French, and English translations
+- Supports multiple language pairs: Spanish-French, Spanish-English, French-English
+- Bidirectional selection: Choose which language to find (source) and which to display (target)
+- Generates a 15x15 wordsearch grid with words placed in random directions
 - Translation words displayed in the list for lookup
 - Interactive selection: click and drag to find words
 - Visual feedback for found words (highlighted in yellow, struck through in list)
@@ -13,20 +15,22 @@ A static website that generates wordsearch puzzles with Spanish/English food voc
 ## How to Use
 
 1. Open `index.html` in a web browser
-2. Select direction: Spanish->English or English->Spanish
-3. Click and drag on the grid to select sequences of letters
-4. Find all the target-language words - reference words are in the list
-5. Found words are highlighted and marked complete
+2. Select the language for the grid (where words will be hidden)
+3. Select the language for the word list (the translations to find)
+4. Click and drag on the grid to select sequences of letters
+5. Find all the word list language words - reference translations are in the list
+6. Found words are highlighted and marked complete
 
 ## Adding More Words
 
-Edit `words.json` to add more word pairs:
+Edit `words.json` to add more word pairs. Each entry should have all three languages:
 
 ```json
 [
   {
     "spanish": "PAN",
-    "english": "Bread"
+    "french": "PAIN",
+    "english": "BREAD"
   }
 ]
 ```

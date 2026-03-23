@@ -1,22 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
     const gridDiv = document.getElementById('grid');
     const wordListDiv = document.getElementById('word-list');
-    const directionRadios = document.querySelectorAll('input[name="direction"]');
+    const gridLangRadios = document.querySelectorAll('input[name="grid-lang"]');
+    const listLangRadios = document.querySelectorAll('input[name="list-lang"]');
 
     let currentGrid = null;
     let placedWords = [];
     let foundWords = new Set();
+    let sourceWordsSet = new Set();
     let isSelecting = false;
     let startCell = null;
     let currentSelection = [];
     let wordData = [];
 
-    directionRadios.forEach(radio => radio.addEventListener('change', generateWordsearch));
+    let wordsLoaded = false;
 
     // Load words on page load; wait for direction selection to generate
     loadWords().then(() => {
+        wordsLoaded = true;
         showDirectionPrompt();
     });
+
+    gridLangRadios.forEach(radio => radio.addEventListener('change', () => {
+        if (wordsLoaded) generateWordsearch();
+    }));
+    listLangRadios.forEach(radio => radio.addEventListener('change', () => {
+        if (wordsLoaded) generateWordsearch();
+    }));
 
     function showDirectionPrompt() {
         gridDiv.innerHTML = '<p style="color:#333;">Please select language direction to display the wordsearch.</p>';
@@ -30,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Ensure words are normalized uppercase for grid placement
             wordData = wordData.map(item => ({
                 spanish: item.spanish.toUpperCase(),
+                french: item.french.toUpperCase(),
                 english: item.english.toUpperCase()
             }));
         } catch (error) {
@@ -38,45 +49,58 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function getCurrentDirection() {
-        const selected = document.querySelector('input[name="direction"]:checked');
+    function getCurrentGridLanguage() {
+        const selected = document.querySelector('input[name="grid-lang"]:checked');
+        return selected ? selected.value : null;
+    }
+
+    function getCurrentListLanguage() {
+        const selected = document.querySelector('input[name="list-lang"]:checked');
         return selected ? selected.value : null;
     }
 
     function generateWordsearch() {
-        let direction = getCurrentDirection();
+        const gridLang = getCurrentGridLanguage();
+        const listLang = getCurrentListLanguage();
         const note = document.getElementById('direction-note');
 
-        // If no direction explicitly checked, require selection
-        if (!direction) {
-            note.textContent = 'Direction not selected. Please choose one to generate the wordsearch.';
+        // If no languages selected, require selection
+        if (!gridLang || !listLang) {
+            note.textContent = 'Select both grid and word list languages to generate the wordsearch.';
             showDirectionPrompt();
             return;
         }
 
-        document.querySelector('.input-section').style.display = 'none';
-
-        note.textContent = 'Direction set to ' + (direction === 'es-en' ? 'Spanish → English' : 'English → Spanish') + '.';
+        // Don't allow same language for grid and list
+        if (gridLang === listLang) {
+            note.textContent = 'Grid and word list languages must be different.';
+            showDirectionPrompt();
+            return;
+        }
 
         if (wordData.length === 0) {
             alert('No words loaded.');
             return;
         }
 
+        const directionText = `${gridLang.charAt(0).toUpperCase() + gridLang.slice(1)} → ${listLang.charAt(0).toUpperCase() + listLang.slice(1)}`;
+        note.textContent = 'Direction set to ' + directionText + '.';
+
         const gridSize = 15;
         currentGrid = createEmptyGrid(gridSize);
         placedWords = [];
         foundWords = new Set();
+        sourceWordsSet = new Set();
 
-        const sourceKey = direction === 'es-en' ? 'spanish' : 'english';
-        const displayKey = direction === 'es-en' ? 'english' : 'spanish';
+        // Keep source words in a lookup for any valid location in the grid
+        wordData.forEach(item => sourceWordsSet.add(item[gridLang]));
 
         // Try to place each word with selected source language in grid
         for (const item of wordData) {
-            const sourceWord = item[sourceKey];
+            const sourceWord = item[gridLang];
             const placement = placeWord(currentGrid, sourceWord, gridSize);
             if (placement) {
-                placedWords.push({ ...placement, target: item[displayKey], source: sourceWord });
+                placedWords.push({ ...placement, target: item[listLang], source: sourceWord });
             }
         }
 
@@ -87,7 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
         displayGrid(currentGrid, gridSize);
 
         // Display the word list
-        displayWordList(placedWords, displayKey);
+        displayWordList(placedWords, listLang);
+
+        // Hide input section after successful generation
+        document.querySelector('.input-section').style.display = 'none';
     }
 
     function createEmptyGrid(size) {
@@ -174,11 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayWordList(placements, displayKey) {
-        if (displayKey === 'english') {
-            wordListDiv.innerHTML = '<h3>Words to find (English):</h3>';
-        } else {
-            wordListDiv.innerHTML = '<h3>Words to find (Spanish):</h3>';
-        }
+        const langName = displayKey.charAt(0).toUpperCase() + displayKey.slice(1);
+        wordListDiv.innerHTML = '<h3>Words to find (' + langName + '):</h3>';
         const ul = document.createElement('ul');
         placements.forEach(placement => {
             const li = document.createElement('li');
@@ -254,19 +278,31 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentSelection.length < 2) return;
 
         const selectedText = currentSelection.map(({ row, col }) => currentGrid[row][col]).join('');
+        const reversedText = selectedText.split('').reverse().join('');
 
-        for (const placement of placedWords) {
-            if (foundWords.has(placement.source)) continue;
-
-            const wordCells = getWordCells(placement);
-            if (arraysEqual(currentSelection, wordCells) || arraysEqual(currentSelection, wordCells.slice().reverse())) {
-                // Found the word
-                foundWords.add(placement.source);
-                highlightWord(placement);
-                updateWordList();
-                break;
-            }
+        let foundWord = null;
+        if (sourceWordsSet.has(selectedText) && !foundWords.has(selectedText)) {
+            foundWord = selectedText;
+        } else if (sourceWordsSet.has(reversedText) && !foundWords.has(reversedText)) {
+            foundWord = reversedText;
         }
+
+        if (!foundWord) {
+            return;
+        }
+
+        // Mark found and persist
+        foundWords.add(foundWord);
+
+        currentSelection.forEach(({ row, col }) => {
+            const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+            if (cell) {
+                cell.classList.add('found');
+                cell.classList.remove('selected');
+            }
+        });
+
+        updateWordList();
     }
 
     function getWordCells(placement) {

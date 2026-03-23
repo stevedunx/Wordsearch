@@ -1,62 +1,77 @@
 [
   {
     "spanish": "PAN",
+    "french": "PAIN",
     "english": "Bread"
   },
   {
     "spanish": "QUESO",
+    "french": "FROMAGE",
     "english": "Cheese"
   },
   {
     "spanish": "CARNE",
+    "french": "VIANDE",
     "english": "Meat"
   },
   {
     "spanish": "PESCADO",
+    "french": "POISSON",
     "english": "Fish"
   },
   {
     "spanish": "VERDURAS",
+    "french": "LÉGUMES",
     "english": "Vegetables"
   },
   {
     "spanish": "FRUTA",
+    "french": "FRUIT",
     "english": "Fruit"
   },
   {
     "spanish": "AGUA",
+    "french": "EAU",
     "english": "Water"
   },
   {
     "spanish": "VINO",
+    "french": "VIN",
     "english": "Wine"
   },
   {
     "spanish": "CAFÉ",
+    "french": "CAFÉ",
     "english": "Coffee"
   },
   {
     "spanish": "TÉ",
+    "french": "THÉ",
     "english": "Tea"
   },
   {
     "spanish": "HUEVO",
+    "french": "OEUF",
     "english": "Egg"
   },
   {
     "spanish": "LECHE",
+    "french": "LAIT",
     "english": "Milk"
   },
   {
     "spanish": "MANTEQUILLA",
+    "french": "BEURRE",
     "english": "Butter"
   },
   {
     "spanish": "AZÚCAR",
+    "french": "SUCRE",
     "english": "Sugar"
   },
   {
     "spanish": "SAL",
+    "french": "SEL",
     "english": "Salt"
   }
 ]
