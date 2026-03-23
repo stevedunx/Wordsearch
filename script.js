@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let sourceWordsSet = new Set();
     let isSelecting = false;
     let startCell = null;
-    let touchStartCell = null;
     let currentSelection = [];
     let wordData = [];
 
@@ -342,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isTouchDevice()) {
             const mobileHint = document.createElement('p');
             mobileHint.className = 'mobile-hint';
-            mobileHint.textContent = 'On mobile: tap the first letter, then tap the last letter.';
+            mobileHint.textContent = 'On mobile: drag your finger across the letters to select a word.';
             gridDiv.appendChild(mobileHint);
         }
 
@@ -360,7 +359,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 cell.dataset.col = col;
                 cell.addEventListener('mousedown', handleMouseDown);
                 cell.addEventListener('mouseenter', handleMouseEnter);
-                cell.addEventListener('touchend', handleTouchSelection, { passive: false });
+                cell.addEventListener('touchstart', handleTouchStart, { passive: false });
+                cell.addEventListener('touchmove', handleTouchMove, { passive: false });
                 gridElement.appendChild(cell);
             }
         }
@@ -386,7 +386,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleMouseDown(e) {
         if (isSelecting) return;
-        touchStartCell = null;
         isSelecting = true;
         startCell = { row: parseInt(e.target.dataset.row), col: parseInt(e.target.dataset.col) };
         currentSelection = [startCell];
@@ -402,34 +401,39 @@ document.addEventListener('DOMContentLoaded', function() {
         return element;
     }
 
-    function handleTouchSelection(e) {
+    function handleTouchStart(e) {
+        if (isSelecting) return;
         const cell = getCellFromTouch(e);
         if (!cell) return;
         e.preventDefault();
-
-        const tappedCell = {
-            row: parseInt(cell.dataset.row),
-            col: parseInt(cell.dataset.col)
-        };
-
-        if (!touchStartCell) {
-            touchStartCell = tappedCell;
-            currentSelection = [touchStartCell];
-            updateSelectionDisplay();
-            return;
-        }
-
-        if (touchStartCell.row === tappedCell.row && touchStartCell.col === tappedCell.col) {
-            touchStartCell = null;
-            clearSelectionDisplay();
-            return;
-        }
-
-        currentSelection = getSelectionCells(touchStartCell, tappedCell);
+        isSelecting = true;
+        startCell = { row: parseInt(cell.dataset.row), col: parseInt(cell.dataset.col) };
+        currentSelection = [startCell];
         updateSelectionDisplay();
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        document.addEventListener('touchend', handleTouchEnd);
+        document.addEventListener('touchcancel', handleTouchEnd);
+    }
+
+    function handleTouchMove(e) {
+        if (!isSelecting) return;
+        const cell = getCellFromTouch(e);
+        if (!cell) return;
+        e.preventDefault();
+        const row = parseInt(cell.dataset.row);
+        const col = parseInt(cell.dataset.col);
+        currentSelection = getSelectionCells(startCell, { row, col });
+        updateSelectionDisplay();
+    }
+
+    function handleTouchEnd() {
+        if (!isSelecting) return;
+        isSelecting = false;
         checkSelection();
-        touchStartCell = null;
         clearSelectionDisplay();
+        document.removeEventListener('touchmove', handleTouchMove);
+        document.removeEventListener('touchend', handleTouchEnd);
+        document.removeEventListener('touchcancel', handleTouchEnd);
     }
 
     function handleMouseEnter(e) {
