@@ -123,6 +123,7 @@ button:hover {
 #grid {
     flex: 1;
     margin-right: 20px;
+    touch-action: none;
 }
 
 .grid {
@@ -132,6 +133,8 @@ button:hover {
     gap: 0px;
     margin: 0 auto;
     user-select: none;
+    touch-action: none;
+    overscroll-behavior: contain;
 }
 
 .cell {

@@ -313,6 +313,8 @@ document.addEventListener('DOMContentLoaded', function() {
         gridDiv.innerHTML = '';
         const gridElement = document.createElement('div');
         gridElement.className = 'grid';
+        gridElement.addEventListener('touchstart', handleTouchStart, { passive: false });
+        gridElement.addEventListener('touchmove', handleTouchMove, { passive: false });
 
         for (let row = 0; row < size; row++) {
             for (let col = 0; col < size; col++) {
@@ -323,8 +325,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 cell.dataset.col = col;
                 cell.addEventListener('mousedown', handleMouseDown);
                 cell.addEventListener('mouseenter', handleMouseEnter);
-                cell.addEventListener('touchstart', handleTouchStart, { passive: false });
-                cell.addEventListener('touchmove', handleTouchMove, { passive: false });
                 gridElement.appendChild(cell);
             }
         }
@@ -374,7 +374,9 @@ document.addEventListener('DOMContentLoaded', function() {
         startCell = { row: parseInt(cell.dataset.row), col: parseInt(cell.dataset.col) };
         currentSelection = [startCell];
         updateSelectionDisplay();
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
         document.addEventListener('touchend', handleTouchEnd);
+        document.addEventListener('touchcancel', handleTouchEnd);
     }
 
     function handleTouchMove(e) {
@@ -393,7 +395,9 @@ document.addEventListener('DOMContentLoaded', function() {
         isSelecting = false;
         checkSelection();
         clearSelectionDisplay();
+        document.removeEventListener('touchmove', handleTouchMove);
         document.removeEventListener('touchend', handleTouchEnd);
+        document.removeEventListener('touchcancel', handleTouchEnd);
     }
 
     function handleMouseEnter(e) {
