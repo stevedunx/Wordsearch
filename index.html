@@ -11,11 +11,6 @@
         <h1>Language Wordsearch</h1>
         <div class="input-section">
             <p>Select a theme and languages, then find the word list language words in the grid.</p>
-            <div class="theme-selection">
-                <h4>Theme:</h4>
-                <label><input type="radio" name="theme" value="food" checked> Food</label>
-                <label><input type="radio" name="theme" value="family"> Family Members</label>
-            </div>
             <div class="language-selection">
                 <div class="column">
                     <h4>Grid Language:</h4>
@@ -32,10 +27,18 @@
                     <label><input type="radio" name="list-lang" value="kw"> Cornish</label>
                 </div>
             </div>
+            <div class="theme-selection">
+                <h4>Theme:</h4>
+                <label><input type="radio" name="theme" value="food" checked> Food</label>
+                <label><input type="radio" name="theme" value="family"> Family Members</label>
+            </div>
             <div class="button-section">
                 <button id="generate-btn">Load Wordsearch</button>
             </div>
             <p id="direction-note" style="font-size:0.95em; color:#555;">Select theme and languages, then click "Load Wordsearch".</p>
+        </div>
+        <div class="wordsearch-actions">
+            <button id="back-to-selection" type="button" hidden>Back to Theme Selection</button>
         </div>
         <div class="wordsearch-section">
             <div id="grid"></div>

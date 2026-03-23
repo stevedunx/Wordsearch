@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const DEFAULT_GRID_SIZE = 12;
     const gridDiv = document.getElementById('grid');
     const wordListDiv = document.getElementById('word-list');
+    const backToSelectionButton = document.getElementById('back-to-selection');
     const themeRadios = document.querySelectorAll('input[name="theme"]');
     const gridLangRadios = document.querySelectorAll('input[name="grid-lang"]');
     const listLangRadios = document.querySelectorAll('input[name="list-lang"]');
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     themeRadios.forEach(radio => radio.addEventListener('change', () => {
-        applyUrlSettings();
+        updateUrlParams(getCurrentTheme(), getCurrentGridLanguage(), getCurrentListLanguage());
         loadWords().then(() => {
             wordsLoaded = true;
             if (!getCurrentListLanguage()) setDefaultListLanguage();
@@ -99,6 +100,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 generateWordsearch();
             });
         }
+    });
+
+    backToSelectionButton.addEventListener('click', () => {
+        document.querySelector('.input-section').style.display = 'block';
+        backToSelectionButton.hidden = true;
+        document.title = 'Wordsearch Generator';
+        document.querySelector('h1').textContent = 'Language Wordsearch';
+        showDirectionPrompt();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     function showDirectionPrompt() {
@@ -279,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Hide the input section to focus on the wordsearch
         document.querySelector('.input-section').style.display = 'none';
+        backToSelectionButton.hidden = false;
     }
 
     function createEmptyGrid(size) {
