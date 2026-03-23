@@ -1,0 +1,62 @@
+[
+  {
+    "spanish": "PADRE",
+    "french": "PERE",
+    "english": "Father"
+  },
+  {
+    "spanish": "MADRE",
+    "french": "MERE",
+    "english": "Mother"
+  },
+  {
+    "spanish": "HIJO",
+    "french": "FILS",
+    "english": "Son"
+  },
+  {
+    "spanish": "HIJA",
+    "french": "FILLE",
+    "english": "Daughter"
+  },
+  {
+    "spanish": "HERMANO",
+    "french": "FRERE",
+    "english": "Brother"
+  },
+  {
+    "spanish": "HERMANA",
+    "french": "SOEUR",
+    "english": "Sister"
+  },
+  {
+    "spanish": "ABUELO",
+    "french": "GRANDPERE",
+    "english": "Grandfather"
+  },
+  {
+    "spanish": "ABUELA",
+    "french": "GRANDMERE",
+    "english": "Grandmother"
+  },
+  {
+    "spanish": "TIO",
+    "french": "ONCLE",
+    "english": "Uncle"
+  },
+  {
+    "spanish": "TIA",
+    "french": "TANTE",
+    "english": "Aunt"
+  },
+  {
+    "spanish": "PRIMO",
+    "french": "COUSIN",
+    "english": "Cousin"
+  },
+  {
+    "spanish": "PRIMA",
+    "french": "COUSINE",
+    "english": "Cousin"
+  }
+]

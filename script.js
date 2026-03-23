@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const gridDiv = document.getElementById('grid');
     const wordListDiv = document.getElementById('word-list');
+    const themeRadios = document.querySelectorAll('input[name="theme"]');
     const gridLangRadios = document.querySelectorAll('input[name="grid-lang"]');
     const listLangRadios = document.querySelectorAll('input[name="list-lang"]');
 
@@ -15,27 +16,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let wordsLoaded = false;
 
-    // Load words on page load; wait for direction selection to generate
+    // Load words on page load; wait for selections to generate
     loadWords().then(() => {
         wordsLoaded = true;
         showDirectionPrompt();
     });
 
+    themeRadios.forEach(radio => radio.addEventListener('change', () => {
+        loadWords().then(() => {
+            wordsLoaded = true;
+            // Don't auto-generate, just load the words
+        });
+    }));
     gridLangRadios.forEach(radio => radio.addEventListener('change', () => {
-        if (wordsLoaded) generateWordsearch();
+        // Don't auto-generate, just update selection
     }));
     listLangRadios.forEach(radio => radio.addEventListener('change', () => {
-        if (wordsLoaded) generateWordsearch();
+        // Don't auto-generate, just update selection
     }));
 
+    // Generate button event listener
+    document.getElementById('generate-btn').addEventListener('click', () => {
+        if (wordsLoaded) {
+            generateWordsearch();
+        } else {
+            // If words not loaded yet, load them first
+            loadWords().then(() => {
+                wordsLoaded = true;
+                generateWordsearch();
+            });
+        }
+    });
+
     function showDirectionPrompt() {
-        gridDiv.innerHTML = '<p style="color:#333;">Please select language direction to display the wordsearch.</p>';
+        gridDiv.innerHTML = '<p style="color:#333;">Select your options above and click "Load Wordsearch" to begin.</p>';
         wordListDiv.innerHTML = '';
     }
 
     async function loadWords() {
+        const theme = getCurrentTheme();
+        const fileName = theme === 'family' ? 'family.json' : 'food.json';
+
         try {
-            const response = await fetch('words.json');
+            const response = await fetch(fileName);
             wordData = await response.json();
             // Ensure words are normalized uppercase for grid placement
             wordData = wordData.map(item => ({
@@ -47,6 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading words:', error);
             alert('Error loading words data.');
         }
+    }
+
+    function getCurrentTheme() {
+        const selected = document.querySelector('input[name="theme"]:checked');
+        return selected ? selected.value : 'food';
     }
 
     function getCurrentGridLanguage() {
@@ -83,7 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const directionText = `${gridLang.charAt(0).toUpperCase() + gridLang.slice(1)} → ${listLang.charAt(0).toUpperCase() + listLang.slice(1)}`;
+        const theme = getCurrentTheme();
+        const themeName = theme === 'family' ? 'Family Members' : 'Food';
+        const directionText = `${gridLang.charAt(0).toUpperCase() + gridLang.slice(1)} → ${listLang.charAt(0).toUpperCase() + listLang.slice(1)} (${themeName})`;
         note.textContent = 'Direction set to ' + directionText + '.';
 
         const gridSize = 15;
@@ -113,8 +143,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Display the word list
         displayWordList(placedWords, listLang);
 
-        // Hide input section after successful generation
-        document.querySelector('.input-section').style.display = 'none';
+        // Show "New Wordsearch" button and hide generate button
+        document.getElementById('generate-btn').style.display = 'none';
+        const newBtn = document.createElement('button');
+        newBtn.id = 'new-btn';
+        newBtn.textContent = 'New Wordsearch';
+        newBtn.style.cssText = 'padding: 12px 24px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; margin-left: 10px;';
+        newBtn.addEventListener('click', () => {
+            // Reset the interface
+            document.querySelector('.input-section').style.display = 'block';
+            document.getElementById('generate-btn').style.display = 'inline-block';
+            newBtn.remove();
+            showDirectionPrompt();
+            foundWords.clear();
+        });
+        document.querySelector('.button-section').appendChild(newBtn);
     }
 
     function createEmptyGrid(size) {
