@@ -135,8 +135,6 @@ button:hover {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(15, 30px);
-    grid-template-rows: repeat(15, 30px);
     gap: 0px;
     margin: 0 auto;
     user-select: none;
@@ -145,8 +143,8 @@ button:hover {
 }
 
 .cell {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -155,7 +153,7 @@ button:hover {
     outline: none;
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
     touch-action: none;

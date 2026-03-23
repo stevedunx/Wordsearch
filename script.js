@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const DEFAULT_GRID_SIZE = 12;
     const gridDiv = document.getElementById('grid');
     const wordListDiv = document.getElementById('word-list');
     const themeRadios = document.querySelectorAll('input[name="theme"]');
@@ -218,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         updateUrlParams(theme, gridLang, listLang);
 
-        const gridSize = 15;
+        const gridSize = DEFAULT_GRID_SIZE;
         currentGrid = createEmptyGrid(gridSize);
         placedWords = [];
         foundWords = new Set();
@@ -326,6 +327,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const gridElement = document.createElement('div');
         gridElement.className = 'grid';
+        gridElement.style.gridTemplateColumns = `repeat(${size}, 28px)`;
+        gridElement.style.gridTemplateRows = `repeat(${size}, 28px)`;
 
         for (let row = 0; row < size; row++) {
             for (let col = 0; col < size; col++) {
@@ -426,6 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getSelectionCells(start, end) {
         const cells = [];
+        const gridSize = currentGrid ? currentGrid.length : DEFAULT_GRID_SIZE;
         const dRow = end.row - start.row;
         const dCol = end.col - start.col;
         const steps = Math.max(Math.abs(dRow), Math.abs(dCol));
@@ -437,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i <= steps; i++) {
             const row = Math.round(start.row + i * stepRow);
             const col = Math.round(start.col + i * stepCol);
-            if (row >= 0 && row < 15 && col >= 0 && col < 15) {
+            if (row >= 0 && row < gridSize && col >= 0 && col < gridSize) {
                 cells.push({ row, col });
             }
         }
