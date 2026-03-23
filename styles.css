@@ -126,6 +126,13 @@ button:hover {
     touch-action: none;
 }
 
+.mobile-hint {
+    margin: 0 0 12px;
+    color: #555;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(15, 30px);

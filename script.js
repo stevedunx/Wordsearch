@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let sourceWordsSet = new Set();
     let isSelecting = false;
     let startCell = null;
+    let touchStartCell = null;
     let currentSelection = [];
     let wordData = [];
 
@@ -178,6 +179,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return selected ? selected.value : null;
     }
 
+    function isTouchDevice() {
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    }
+
     function generateWordsearch() {
         const gridLang = getCurrentGridLanguage();
         const listLang = getCurrentListLanguage();
@@ -311,10 +316,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayGrid(grid, size) {
         gridDiv.innerHTML = '';
+
+        if (isTouchDevice()) {
+            const mobileHint = document.createElement('p');
+            mobileHint.className = 'mobile-hint';
+            mobileHint.textContent = 'On mobile: tap the first letter, then tap the last letter.';
+            gridDiv.appendChild(mobileHint);
+        }
+
         const gridElement = document.createElement('div');
         gridElement.className = 'grid';
-        gridElement.addEventListener('touchstart', handleTouchStart, { passive: false });
-        gridElement.addEventListener('touchmove', handleTouchMove, { passive: false });
 
         for (let row = 0; row < size; row++) {
             for (let col = 0; col < size; col++) {
@@ -325,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 cell.dataset.col = col;
                 cell.addEventListener('mousedown', handleMouseDown);
                 cell.addEventListener('mouseenter', handleMouseEnter);
+                cell.addEventListener('touchend', handleTouchSelection, { passive: false });
                 gridElement.appendChild(cell);
             }
         }
@@ -350,6 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleMouseDown(e) {
         if (isSelecting) return;
+        touchStartCell = null;
         isSelecting = true;
         startCell = { row: parseInt(e.target.dataset.row), col: parseInt(e.target.dataset.col) };
         currentSelection = [startCell];
@@ -365,39 +378,34 @@ document.addEventListener('DOMContentLoaded', function() {
         return element;
     }
 
-    function handleTouchStart(e) {
-        if (isSelecting) return;
+    function handleTouchSelection(e) {
         const cell = getCellFromTouch(e);
         if (!cell) return;
         e.preventDefault();
-        isSelecting = true;
-        startCell = { row: parseInt(cell.dataset.row), col: parseInt(cell.dataset.col) };
-        currentSelection = [startCell];
-        updateSelectionDisplay();
-        document.addEventListener('touchmove', handleTouchMove, { passive: false });
-        document.addEventListener('touchend', handleTouchEnd);
-        document.addEventListener('touchcancel', handleTouchEnd);
-    }
 
-    function handleTouchMove(e) {
-        if (!isSelecting) return;
-        const cell = getCellFromTouch(e);
-        if (!cell) return;
-        e.preventDefault();
-        const row = parseInt(cell.dataset.row);
-        const col = parseInt(cell.dataset.col);
-        currentSelection = getSelectionCells(startCell, { row, col });
-        updateSelectionDisplay();
-    }
+        const tappedCell = {
+            row: parseInt(cell.dataset.row),
+            col: parseInt(cell.dataset.col)
+        };
 
-    function handleTouchEnd() {
-        if (!isSelecting) return;
-        isSelecting = false;
+        if (!touchStartCell) {
+            touchStartCell = tappedCell;
+            currentSelection = [touchStartCell];
+            updateSelectionDisplay();
+            return;
+        }
+
+        if (touchStartCell.row === tappedCell.row && touchStartCell.col === tappedCell.col) {
+            touchStartCell = null;
+            clearSelectionDisplay();
+            return;
+        }
+
+        currentSelection = getSelectionCells(touchStartCell, tappedCell);
+        updateSelectionDisplay();
         checkSelection();
+        touchStartCell = null;
         clearSelectionDisplay();
-        document.removeEventListener('touchmove', handleTouchMove);
-        document.removeEventListener('touchend', handleTouchEnd);
-        document.removeEventListener('touchcancel', handleTouchEnd);
     }
 
     function handleMouseEnter(e) {
