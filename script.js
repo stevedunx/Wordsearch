@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const DEFAULT_GRID_SIZE = 12;
     const gridDiv = document.getElementById('grid');
     const wordListDiv = document.getElementById('word-list');
+    const wordsearchActions = document.querySelector('.wordsearch-actions');
     const backToSelectionButton = document.getElementById('back-to-selection');
     const showTranslationsBtn = document.getElementById('show-translations-btn');
     const languageWindow = document.getElementById('language-window');
@@ -93,12 +94,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function showLanguageWindow() {
         languageWindow.hidden = false;
         themeWindow.hidden = true;
+        wordsearchActions.hidden = true;
+        backToSelectionButton.hidden = true;
+        showTranslationsBtn.hidden = true;
         directionNote.textContent = 'Select a language pair, then continue to choose a theme.';
     }
 
     function showThemeWindow() {
         languageWindow.hidden = true;
         themeWindow.hidden = false;
+        wordsearchActions.hidden = true;
+        backToSelectionButton.hidden = true;
+        showTranslationsBtn.hidden = true;
         directionNote.textContent = 'Select a theme and click "Load Wordsearch".';
     }
 
@@ -191,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     backToSelectionButton.addEventListener('click', () => {
         document.querySelector('.input-section').style.display = 'block';
+        wordsearchActions.hidden = true;
         backToSelectionButton.hidden = true;
         showTranslationsBtn.hidden = true;
         document.title = 'Wordsearch Generator';
@@ -435,6 +443,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Hide the input section to focus on the wordsearch
         document.querySelector('.input-section').style.display = 'none';
+        wordsearchActions.hidden = false;
         backToSelectionButton.hidden = false;
         showTranslationsBtn.hidden = false;
     }
