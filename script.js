@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const sourceWord = getGridWord(item[sourceField]);
             const placement = placeWord(currentGrid, sourceWord, gridSize, seededRandom);
             if (placement) {
-                placedWords.push({ ...placement, target: item[targetField], source: sourceWord });
+                placedWords.push({ ...placement, target: item[targetField], source: sourceWord, gridDisplay: item[sourceField] });
             }
         }
 
@@ -388,8 +388,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const li = document.createElement('li');
             li.textContent = placement.target;
             li.dataset.word = placement.source;
+            li.dataset.gridWord = placement.gridDisplay;
+            li.dataset.listWord = placement.target;
             if (foundWords.has(placement.source)) {
                 li.classList.add('found');
+                if (placement.gridDisplay !== placement.target) {
+                    const span = document.createElement('span');
+                    span.className = 'grid-word-reveal';
+                    span.textContent = ` (${placement.gridDisplay})`;
+                    li.appendChild(span);
+                }
             }
             ul.appendChild(li);
         });
@@ -558,6 +566,13 @@ document.addEventListener('DOMContentLoaded', function() {
         lis.forEach(li => {
             if (foundWords.has(li.dataset.word)) {
                 li.classList.add('found');
+                const gridWord = li.dataset.gridWord;
+                if (gridWord && gridWord !== li.dataset.listWord && !li.querySelector('.grid-word-reveal')) {
+                    const span = document.createElement('span');
+                    span.className = 'grid-word-reveal';
+                    span.textContent = ` (${gridWord})`;
+                    li.appendChild(span);
+                }
             }
         });
     }

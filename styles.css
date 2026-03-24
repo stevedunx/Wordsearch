@@ -205,6 +205,12 @@ button:hover {
     color: #888;
 }
 
+#word-list li.found .grid-word-reveal {
+    text-decoration: none;
+    font-style: italic;
+    color: #555;
+}
+
 @media (max-width: 700px) {
     body {
         padding: 12px;
