@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let placedWords = [];
     let foundWords = new Set();
     let sourceWordsSet = new Set();
+    let currentPuzzleKey = null;
     let isSelecting = false;
     let startCell = null;
     let currentSelection = [];
@@ -252,8 +253,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const gridSize = DEFAULT_GRID_SIZE;
         currentGrid = createEmptyGrid(gridSize);
         placedWords = [];
-        foundWords = new Set();
         sourceWordsSet = new Set();
+
+        const puzzleKey = `${theme}:${gridLang}:${listLang}`;
+        if (puzzleKey !== currentPuzzleKey) {
+            foundWords = new Set();
+            currentPuzzleKey = puzzleKey;
+        }
 
         const sourceField = mapLangCodeToField(gridLang);
         const targetField = mapLangCodeToField(listLang);
@@ -279,6 +285,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Display the word list
         displayWordList(placedWords, listLang);
+
+        // Re-highlight any already-found cells (when returning to same puzzle)
+        if (foundWords.size > 0) {
+            placedWords.forEach(placement => {
+                if (foundWords.has(placement.source)) {
+                    highlightWord(placement);
+                }
+            });
+        }
 
         // Hide the input section to focus on the wordsearch
         document.querySelector('.input-section').style.display = 'none';
