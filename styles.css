@@ -149,10 +149,12 @@ button:hover {
 .grid {
     display: grid;
     gap: 0px;
+    width: fit-content;
     margin: 0 auto;
     user-select: none;
     touch-action: none;
     overscroll-behavior: contain;
+    border: 2px solid #333;
 }
 
 .cell {
