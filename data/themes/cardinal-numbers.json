@@ -39,7 +39,7 @@
         "en": "five",
         "fr": "cinq",
         "es": "cinco",
-        "kw": "pemp",
+        "kw": "pymp",
         "br": "pemp",
         "cy": "pump",
         "cz": "pět"
@@ -48,8 +48,8 @@
         "en": "six",
         "fr": "six",
         "es": "seis",
-        "kw": "c'hwec'h",
-        "br": "c'hwec'h",
+        "kw": "hwegh",
+        "br": "chwech",
         "cy": "chwech",
         "cz": "šest"
     },
@@ -57,7 +57,7 @@
         "en": "seven",
         "fr": "sept",
         "es": "siete",
-        "kw": "seizh",
+        "kw": "seyth",
         "br": "seizh",
         "cy": "saith",
         "cz": "sedm"
@@ -66,17 +66,17 @@
         "en": "eight",
         "fr": "huit",
         "es": "ocho",
-        "kw": "(e)izh",
-        "br": "(e)izh",
-        "cy": "(wyth)",
+        "kw": "eth",
+        "br": "eizh",
+        "cy": "wyth",
         "cz": "osm"
     },
     {
         "en": "nine",
         "fr": "neuf",
         "es": "nueve",
-        "kw": "naou",
-        "br": "naou",
+        "kw": "naw",
+        "br": "nav",
         "cy": "naw",
         "cz": "devět"
     },
@@ -84,8 +84,8 @@
         "en": "ten",
         "fr": "dix",
         "es": "diez",
-        "kw": "dek'h",
-        "br": "dek'h",
+        "kw": "deg",
+        "br": "dek",
         "cy": "deg",
         "cz": "deset"
     }   
