@@ -1,0 +1,37 @@
+[
+    {
+        "code": "en",
+        "name": "English",
+        "file": "en.json"
+    },
+    {
+        "code": "es",
+        "name": "Spanish",
+        "file": "es.json"
+    },
+    {
+        "code": "fr",
+        "name": "French",
+        "file": "fr.json"
+    },
+    {
+        "code": "kw",
+        "name": "Cornish",
+        "file": "kw.json"
+    },
+    {
+        "code": "br",
+        "name": "Breton",
+        "file": "br.json"
+    },
+    {
+        "code": "cy",
+        "name": "Welsh",
+        "file": "cy.json"
+    },
+    {
+        "code": "cz",
+        "name": "Czech",
+        "file": "cz.json"
+    }
+]

@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let themeCatalog = [];
     let initialThemeFromUrl = null;
     let showingTranslations = false;
+    const DEFAULT_ALPHABET = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    const languageAlphabetCache = {};
 
     let wordsLoaded = false;
     let loadedTheme = null;
@@ -81,6 +83,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         themeCatalog = await response.json();
         setThemeOptions(themeCatalog);
+    }
+
+    async function getAlphabetForLanguage(langCode) {
+        const normalizedCode = normalizeLangCode(langCode);
+
+        if (languageAlphabetCache[normalizedCode]) {
+            return languageAlphabetCache[normalizedCode];
+        }
+
+        try {
+            const response = await fetch(`data/languages/${normalizedCode}.json`);
+            if (!response.ok) {
+                throw new Error(`Unable to load alphabet for ${normalizedCode}`);
+            }
+
+            const config = await response.json();
+            const alphabet = Array.isArray(config.alphabet) ? config.alphabet : [];
+
+            if (alphabet.length === 0) {
+                languageAlphabetCache[normalizedCode] = DEFAULT_ALPHABET;
+            } else {
+                languageAlphabetCache[normalizedCode] = alphabet;
+            }
+        } catch (error) {
+            console.error('Error loading language alphabet:', error);
+            languageAlphabetCache[normalizedCode] = DEFAULT_ALPHABET;
+        }
+
+        return languageAlphabetCache[normalizedCode];
+    }
+
+    function safelyGenerateWordsearch() {
+        generateWordsearch().catch(error => {
+            console.error('Error generating wordsearch:', error);
+            directionNote.textContent = 'Unable to generate wordsearch. Please try again.';
+        });
     }
 
     function applyUrlSettings() {
@@ -144,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadWords(initialThemeFromUrl).then(() => {
                     wordsLoaded = true;
                     loadedTheme = initialThemeFromUrl;
-                    generateWordsearch();
+                    safelyGenerateWordsearch();
                 });
             } else if (hasLanguagePairInUrl) {
                 updateUrlParams(null, getCurrentGridLanguage(), getCurrentListLanguage());
@@ -195,13 +233,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (wordsLoaded && loadedTheme === selectedTheme) {
-            generateWordsearch();
+            safelyGenerateWordsearch();
         } else {
             // If words not loaded yet, load them first
             loadWords(selectedTheme).then(() => {
                 wordsLoaded = true;
                 loadedTheme = selectedTheme;
-                generateWordsearch();
+                safelyGenerateWordsearch();
             });
         }
     });
@@ -389,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    function generateWordsearch() {
+    async function generateWordsearch() {
         const gridLang = getCurrentGridLanguage();
         const listLang = getCurrentListLanguage();
         const note = document.getElementById('direction-note');
@@ -438,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const sourceField = mapLangCodeToField(gridLang);
         const targetField = mapLangCodeToField(listLang);
         const seededRandom = createSeededRandom(`${theme}:${sourceField}:${gridSize}`);
+        const gridAlphabet = await getAlphabetForLanguage(gridLang);
 
         // Keep source words in a lookup for any valid location in the grid
         wordData.forEach(item => sourceWordsSet.add(getGridWord(item[sourceField])));
@@ -452,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Fill empty cells with random letters
-        fillEmptyCells(currentGrid, gridSize, seededRandom);
+        fillEmptyCells(currentGrid, gridSize, seededRandom, gridAlphabet);
 
         // Display the grid
         displayGrid(currentGrid, gridSize);
@@ -521,8 +560,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
-    function fillEmptyCells(grid, size, random) {
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    function fillEmptyCells(grid, size, random, alphabet = DEFAULT_ALPHABET) {
+        const letters = Array.isArray(alphabet) && alphabet.length > 0 ? alphabet : DEFAULT_ALPHABET;
         for (let row = 0; row < size; row++) {
             for (let col = 0; col < size; col++) {
                 if (grid[row][col] === null) {
