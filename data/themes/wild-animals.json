@@ -1,0 +1,98 @@
+[
+    {
+        "es": "LEON",
+        "fr": "LION",
+        "en": "LION",
+        "kw": "LEW",
+        "br": "LEON",
+        "cy": "LLEW"
+    },
+    {
+        "es": "TIGRE",
+        "fr": "TIGRE",
+        "en": "TIGER",
+        "kw": "TIGER",
+        "br": "TIGR",
+        "cy": "TEIGR"
+    },
+    {
+        "es": "ELEFANTE",
+        "fr": "ELEPHANT",
+        "en": "ELEPHANT",
+        "kw": "OLIFANS",
+        "br": "OLIFANT",
+        "cy": "ELIFFANT"
+    },
+    {
+        "es": "JIRAFA",
+        "fr": "GIRAFE",
+        "en": "GIRAFFE",
+        "kw": "JIRAFF",
+        "br": "JIRAFENN",
+        "cy": "JIRAFF"
+    },
+    {
+        "es": "CEBRA",
+        "fr": "ZEBRE",
+        "en": "ZEBRA",
+        "kw": "ZEBRA",
+        "br": "roudenneg",
+        "cy": "SEBRA"
+    },
+    {
+        "es": "RINOCERONTE",
+        "fr": "RHINOCEROS",
+        "en": "RHINO",
+        "kw": "TRONGORNVIL",
+        "br": "FRIKORNEG",
+        "cy": "RHINOSEROS"
+    },
+    {
+        "es": "LEOPARDO",
+        "fr": "LEOPARD",
+        "en": "LEOPARD",
+        "kw": "LEOPARD",
+        "br": "loupard",
+        "cy": "LLEWPARD"
+    },
+    {
+        "es": "GUEPARDO",
+        "fr": "guépard",
+        "en": "CHEETAH",
+        "kw": "chitrak",
+        "br": "gwepard",
+        "cy": "TSITA"
+    },
+    {
+        "es": "LOBO",
+        "fr": "LOUP",
+        "en": "WOLF",
+        "kw": "BLEYDH",
+        "br": "BLEIZ",
+        "cy": "BLAIDD"
+    },
+    {
+        "es": "ZORRO",
+        "fr": "RENARD",
+        "en": "FOX",
+        "kw": "LOWARN",
+        "br": "LOUARN",
+        "cy": "LLWYNOG"
+    },
+    {
+        "es": "OSO",
+        "fr": "OURS",
+        "en": "BEAR",
+        "kw": "ARTH",
+        "br": "ARZH",
+        "cy": "ARTH"
+    },
+    {
+        "es": "COCODRILO",
+        "fr": "CROCODILE",
+        "en": "CROCODILE",
+        "kw": "CROKODIL",
+        "br": "KROKODIL",
+        "cy": "CROCODEIL"
+    }
+]
