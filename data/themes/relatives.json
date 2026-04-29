@@ -5,8 +5,7 @@
         "en": "Father",
         "kw": "TAS",
         "br": "TAD",
-        "cy": "TAD",
-        "cz": "OTEC"
+        "cy": "TAD"
     },
     {
         "es": "MADRE",
@@ -14,8 +13,7 @@
         "en": "Mother",
         "kw": "MAMM",
         "br": "MAM",
-        "cy": "MAM",
-        "cz": "MATKA"
+        "cy": "MAM"
     },
     {
         "es": "HIJO",
@@ -23,8 +21,7 @@
         "en": "Son",
         "kw": "MAB",
         "br": "MAP",
-        "cy": "MAB",
-        "cz": "SYN"
+        "cy": "MAB"
     },
     {
         "es": "HIJA",
@@ -32,8 +29,7 @@
         "en": "Daughter",
         "kw": "MERGH",
         "br": "MERC'H",
-        "cy": "MERCH",
-        "cz": "DCERA"
+        "cy": "MERCH"
     },
     {
         "es": "HERMANO",
@@ -41,8 +37,7 @@
         "en": "Brother",
         "kw": "BRODER",
         "br": "BREUDEUR",
-        "cy": "BRAWD",
-        "cz": "BRATR"
+        "cy": "BRAWD"
     },
     {
         "es": "HERMANA",
@@ -50,8 +45,7 @@
         "en": "Sister",
         "kw": "HWOR",
         "br": "C'HOAR",
-        "cy": "CHWAER",
-        "cz": "SESTRA"
+        "cy": "CHWAER"
     },
     {
         "es": "ABUELO",
@@ -59,8 +53,7 @@
         "en": "Grandfather",
         "kw": "TAS GWYNN",
         "br": "TAD-KOZH",
-        "cy": "TAID",
-        "cz": "DEDECEK"
+        "cy": "TAID"
     },
     {
         "es": "ABUELA",
@@ -68,8 +61,7 @@
         "en": "Grandmother",
         "kw": "MAMM WYNN",
         "br": "MAMM-KOZH",
-        "cy": "NAIN",
-        "cz": "BABICKA"
+        "cy": "NAIN"
     },
     {
         "es": "TIO",
@@ -77,8 +69,7 @@
         "en": "Uncle",
         "kw": "EWNTER",
         "br": "EONTR",
-        "cy": "EWYTHR",
-        "cz": "STRYC"
+        "cy": "EWYTHR"
     },
     {
         "es": "TIA",
@@ -86,8 +77,7 @@
         "en": "Aunt",
         "kw": "MODREP",
         "br": "TANTE",
-        "cy": "MODRYB",
-        "cz": "TETA"
+        "cy": "MODRYB"
     },
     {
         "es": "PRIMO",
@@ -95,8 +85,7 @@
         "en": "Cousin",
         "kw": "KENDEROW",
         "br": "KUZIN",
-        "cy": "CEFNDER",
-        "cz": "BRATRANEC"
+        "cy": "CEFNDER"
     },
     {
         "es": "PRIMA",
@@ -104,7 +93,6 @@
         "en": "Cousin",
         "kw": "KENDEROW",
         "br": "KUZIN",
-        "cy": "CYFNITHER",
-        "cz": "SESTRNICE"
+        "cy": "CYFNITHER"
     }
 ]

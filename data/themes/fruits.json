@@ -5,8 +5,7 @@
         "fr": "pomme",
         "kw": "aval",
         "br": "aval",
-        "cy": "afal",
-        "cz": "jablko"
+        "cy": "afal"
     },
     {
         "en": "Banana",
@@ -14,8 +13,7 @@
         "fr": "banane",
         "kw": "Banana",
         "br": "Bananez",
-        "cy": "banana",
-        "cz": "banán"
+        "cy": "banana"
     },
     {
         "en": "Grape",
@@ -23,8 +21,7 @@
         "fr": "raisin",
         "kw": "grappa",
         "br": "rezin",
-        "cy": "grawnwinen",
-        "cz": "hrozen"
+        "cy": "grawnwinen"
     },
     {
         "en": "Orange",
@@ -32,8 +29,7 @@
         "fr": "ORANGE",
         "kw": "owraval",
         "br": "orañjezenn",
-        "cy": "oren",
-        "cz": "pomeranč"
+        "cy": "oren"
     },
     {
         "en": "Strawberry",
@@ -41,8 +37,7 @@
         "fr": "FRAISE",
         "kw": "sevien",
         "br": "sivi",
-        "cy": "mefusen",
-        "cz": "jahoda"
+        "cy": "mefusen"
     },
     {
         "en": "Blueberry",
@@ -50,8 +45,7 @@
         "fr": "myrtille",
         "kw": "moren las",
         "br": "lusenn",
-        "cy": "llusen",
-        "cz": "borůvka"
+        "cy": "llusen"
     },
     {
         "en": "Watermelon",
@@ -59,8 +53,7 @@
         "fr": "pastèque",
         "kw": "MELLIONEN",
         "br": "MELONMOR",
-        "cy": "melon dŵr",
-        "cz": "vodní meloun"
+        "cy": "melon dŵr"
     },
     {
         "en": "Peach",
@@ -68,8 +61,7 @@
         "fr": "pêche",
         "kw": "aval gwlanek",
         "br": "pechez",
-        "cy": "eirin gwlanog",
-        "cz": "broskev"
+        "cy": "eirin gwlanog"
     },
     {
         "en": "Lemon",
@@ -77,8 +69,7 @@
         "fr": "citron",
         "kw": "lymmaval",
         "br": "sitron",
-        "cy": "lemon",
-        "cz": "citrón"
+        "cy": "lemon"
     },
     {
         "en": "Pear",
@@ -86,8 +77,7 @@
         "fr": "poire",
         "kw": "peren",
         "br": "per",
-        "cy": "gellygen",
-        "cz": "hruška"
+        "cy": "gellygen"
     },
     {
         "en": "Pineapple",
@@ -95,8 +85,7 @@
         "fr": "ananas",
         "kw": "pinaval",
         "br": "pruñsti",
-        "cy": "pinafal",
-        "cz": "ananas"
+        "cy": "pinafal"
     },
     {
         "en": "Raspberry",
@@ -104,8 +93,7 @@
         "fr": "framboise",
         "kw": "avanen",
         "br": "mezruz",
-        "cy": "afanen",
-        "cz": "malina"
+        "cy": "afanen"
     },
     {
         "en": "Mango",
@@ -113,7 +101,6 @@
         "fr": "mangue",
         "kw": "mango",
         "br": "mango",
-        "cy": "mango",
-        "cz": "mango"
+        "cy": "mango"
     }
 ]

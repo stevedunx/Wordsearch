@@ -5,8 +5,7 @@
         "en": "Bread",
         "kw": "BARA",
         "br": "BARA",
-        "cy": "BARA",
-        "cz": "chléb"
+        "cy": "BARA"
     },
     {
         "es": "QUESO",
@@ -14,8 +13,7 @@
         "en": "Cheese",
         "kw": "KEUS",
         "br": "KEUS",
-        "cy": "CAWS",
-        "cz": "sýr"
+        "cy": "CAWS"
     },
     {
         "es": "CARNE",
@@ -23,8 +21,7 @@
         "en": "Meat",
         "kw": "KIG",
         "br": "KIG",
-        "cy": "CIG",
-        "cz": "MASO"
+        "cy": "CIG"
     },
     {
         "es": "PESCADO",
@@ -32,8 +29,7 @@
         "en": "Fish",
         "kw": "PYSK",
         "br": "PESK",
-        "cy": "pysgodyn",
-        "cz": "RYBA"
+        "cy": "pysgodyn"
     },
     {
         "es": "VERDURAS",
@@ -41,8 +37,7 @@
         "en": "Vegetables",
         "kw": "losow kegin",
         "br": "LOUZOÙ",
-        "cy": "LLYSIAU",
-        "cz": "ZELENINA"
+        "cy": "LLYSIAU"
     },
     {
         "es": "FRUTA",
@@ -50,8 +45,7 @@
         "en": "Fruit",
         "kw": "FRUT",
         "br": "FROUEZH",
-        "cy": "FFRWYTH",
-        "cz": "OVOCE"
+        "cy": "FFRWYTH"
     },
     {
         "es": "AGUA",
@@ -59,8 +53,7 @@
         "en": "Water",
         "kw": "DOWR",
         "br": "DOUR",
-        "cy": "DWR",
-        "cz": "VODA"
+        "cy": "DWR"
     },
     {
         "es": "VINO",
@@ -68,8 +61,7 @@
         "en": "Wine",
         "kw": "GWIN",
         "br": "GWIN",
-        "cy": "GWIN",
-        "cz": "VINO"
+        "cy": "GWIN"
     },
     {
         "es": "CAFÉ",
@@ -77,8 +69,7 @@
         "en": "Coffee",
         "kw": "KOFFI",
         "br": "KAFE",
-        "cy": "COFFI",
-        "cz": "KAVA"
+        "cy": "COFFI"
     },
     {
         "es": "TÉ",
@@ -86,8 +77,7 @@
         "en": "Tea",
         "kw": "TE",
         "br": "TI",
-        "cy": "TE",
-        "cz": "CAJ"
+        "cy": "TE"
     },
     {
         "es": "HUEVO",
@@ -95,8 +85,7 @@
         "en": "Egg",
         "kw": "OY",
         "br": "OY",
-        "cy": "WY",
-        "cz": "VEJCE"
+        "cy": "WY"
     },
     {
         "es": "LECHE",
@@ -104,8 +93,7 @@
         "en": "Milk",
         "kw": "LETH",
         "br": "LAEZH",
-        "cy": "LLAETH",
-        "cz": "MLEKO"
+        "cy": "LLAETH"
     },
     {
         "es": "MANTEQUILLA",
@@ -113,8 +101,7 @@
         "en": "Butter",
         "kw": "AMANYN",
         "br": "STER",
-        "cy": "MENYN",
-        "cz": "MASLO"
+        "cy": "MENYN"
     },
     {
         "es": "AZÃšCAR",
@@ -122,8 +109,7 @@
         "en": "Sugar",
         "kw": "SUGRA",
         "br": "SUKR",
-        "cy": "SIWGR",
-        "cz": "CUKR"
+        "cy": "SIWGR"
     },
     {
         "es": "SAL",
@@ -131,7 +117,6 @@
         "en": "Salt",
         "kw": "SALLA",
         "br": "HAÑS",
-        "cy": "HALEN",
-        "cz": "SUL"
+        "cy": "HALEN"
     }
 ]

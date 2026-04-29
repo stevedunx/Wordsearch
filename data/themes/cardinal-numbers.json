@@ -5,8 +5,7 @@
         "es": "uno",
         "kw": "onan",
         "br": "unan",
-        "cy": "un",
-        "cz": "jeden"
+        "cy": "un"
     },
     {
         "en": "two",
@@ -14,8 +13,7 @@
         "es": "dos",
         "kw": "dew",
         "br": "daou",
-        "cy": "dau",
-        "cz": "dva"
+        "cy": "dau"
     },
     {
         "en": "three",
@@ -23,8 +21,7 @@
         "es": "tres",
         "kw": "tri",
         "br": "tri",
-        "cy": "tri",
-        "cz": "tři"
+        "cy": "tri"
     },
     {
         "en": "four",
@@ -32,8 +29,7 @@
         "es": "cuatro",
         "kw": "peswar",
         "br": "pevar",
-        "cy": "pedwar",
-        "cz": "čtyři"
+        "cy": "pedwar"
     },
     {
         "en": "five",
@@ -41,8 +37,7 @@
         "es": "cinco",
         "kw": "pymp",
         "br": "pemp",
-        "cy": "pump",
-        "cz": "pět"
+        "cy": "pump"
     },
     {
         "en": "six",
@@ -50,8 +45,7 @@
         "es": "seis",
         "kw": "hwegh",
         "br": "chwech",
-        "cy": "chwech",
-        "cz": "šest"
+        "cy": "chwech"
     },
     {
         "en": "seven",
@@ -59,8 +53,7 @@
         "es": "siete",
         "kw": "seyth",
         "br": "seizh",
-        "cy": "saith",
-        "cz": "sedm"
+        "cy": "saith"
     },
     {
         "en": "eight",
@@ -68,8 +61,7 @@
         "es": "ocho",
         "kw": "eth",
         "br": "eizh",
-        "cy": "wyth",
-        "cz": "osm"
+        "cy": "wyth"
     },
     {
         "en": "nine",
@@ -77,8 +69,7 @@
         "es": "nueve",
         "kw": "naw",
         "br": "nav",
-        "cy": "naw",
-        "cz": "devět"
+        "cy": "naw"
     },
     {
         "en": "ten",
@@ -86,7 +77,6 @@
         "es": "diez",
         "kw": "deg",
         "br": "dek",
-        "cy": "deg",
-        "cz": "deset"
+        "cy": "deg"
     }   
 ]

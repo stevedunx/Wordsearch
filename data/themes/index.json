@@ -13,5 +13,15 @@
         "id": "cardinal-numbers",
         "name": "Cardinal Numbers",
         "file": "cardinal-numbers.json"
+    },
+    {
+        "id": "food",
+        "name": "Food",
+        "file": "food.json"
+    },
+    {
+        "id": "wild-animals",
+        "name": "Wild Animals",
+        "file": "wild-animals.json"
     }
 ]
